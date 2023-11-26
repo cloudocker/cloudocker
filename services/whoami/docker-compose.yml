@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  whoami:
+    image: "traefik/whoami"
+    container_name: "whoami"
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.whoami.rule: "Host(`test.localhost`)"
+      traefik.http.routers.whoami.entrypoints: "http"
+    networks:
+      - cloudtech_traefik-net
+networks:
+  cloudtech_traefik-net:
+    external: true

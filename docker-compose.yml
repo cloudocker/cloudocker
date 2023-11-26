@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  traefik:
+    deploy:
+      labels:
+        traefik.docker.network: "traefik-net"
+        traefik.enable: "true"
+        traefik.http.routers.traefik.entrypoints: "http"
+        # traefik.http.routers.traefik.middlewares: "traefikAuth@file,default@file"
+        traefik.http.routers.traefik.middlewares: "default@file"
+        traefik.http.routers.traefik.rule: "Host(`${TRAEFIK_DOMAIN:-localhost}`)"
+        traefik.http.routers.traefik.service: "api@internal"
+        traefik.http.routers.traefik.tls.certresolver: "letsEncrypt"
+        traefik.http.routers.traefik.tls.options: "modern@file"
+        traefik.http.routers.traefik.tls: "${TRAEFIK_ENABLE_TLS:-true}"
+        traefik.http.services.traefik.loadbalancer.server.port: 8080
+        traefik.http.services.traefik.loadbalancer.sticky.cookie.httpOnly: "true"
+        traefik.http.services.traefik.loadbalancer.sticky.cookie.secure: "${TRAEFIK_ENABLE_TLS:-true}"
+      mode: global
+      # Schedule Traefik on the Swarm manager nodes, as the Swarm API is only exposed on the manager nodes
+      # See https://docs.traefik.io/providers/docker/#docker-api-access_1
+      placement:
+        constraints:
+          - node.role == manager
+    # Published on https://hub.docker.com/_/traefik?tab=tags
+    image: traefik:2.10                                                      # See https://github.com/containous/traefik/releases
+    networks:
+      - traefik-net
+    ports:
+      # To be able to listen on port 80 (http)
+      - mode: host
+        published: 80
+        target: 80
+      # To be able to listen on port 443 (https)
+      - mode: host
+        published: 443
+        target: 443
+      - 8080:8080
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - ./config/config.yml:/etc/traefik/config.yml:ro
+      - ./config/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./config/letsencrypt:/etc/traefik/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  traefik-net:
+    driver: bridge
+    # external: true

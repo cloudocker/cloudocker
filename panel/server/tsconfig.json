@@ -1,6 +1,7 @@
 {
   "extends": "../.nuxt/tsconfig.server.json",
   "exclude": [
-    "../assets/vendor/preline/preline.js"
+    "../assets/vendor/preline/preline.js",
+    "../prisma/**/*"
   ]
 }

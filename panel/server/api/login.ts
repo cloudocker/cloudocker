@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export default defineEventHandler(async (event) => {
   return "Hello Nitro";
 });

@@ -8,7 +8,7 @@ http:
     traefikAuth:
       basicAuth:
         users:
-          - "admin:PASSWORD_HASHED"
+          - "admin:YWRtaW46YWRtaW4="
 
     # Recommended default middleware for most of the services
     # Use with traefik.http.routers.myRouter.middlewares: "default@file"

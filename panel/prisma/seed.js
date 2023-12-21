@@ -3,8 +3,11 @@
 import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
+import userSeeder from "./seeder/user.js";
 import middlewareSeeder from "./seeder/middleware.js";
+
 async function main() {
+  await userSeeder(prisma);
   await middlewareSeeder(prisma);
 }
 main()

@@ -22,12 +22,12 @@
     "@nuxtjs/google-fonts": "^3.1.0",
     "@nuxtjs/tailwindcss": "^6.10.1",
     "@sidebase/nuxt-auth": "^0.6.3-alpha.1",
+    "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.1",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-vue": "^9.18.1",
-    "jsonwebtoken": "^9.0.1",
     "nuxt": "^3.8.2",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
@@ -38,6 +38,9 @@
   "dependencies": {
     "@nuxt/ui": "^2.11.0",
     "@prisma/client": "^5.6.0",
+    "jsonwebtoken": "^9.0.1",
+    "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "zod": "^3.21.4"
   }
 }

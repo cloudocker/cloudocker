@@ -22,39 +22,30 @@ datasource db {
 
 model users {
   id        BigInt   @id @default(autoincrement())
-  email     String   @unique
   name      String?
+  email     String   @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 model middlewares {
   id        BigInt   @id @default(autoincrement())
   name      String   @unique
   data      String   @default("{}")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 model services {
   id        BigInt   @id @default(autoincrement())
   name      String   @unique
   data      String   @default("{}")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 model routers {
   id        BigInt   @id @default(autoincrement())
   name      String   @unique
   data      String   @default("{}")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
-
-model routers2 {
-  id        BigInt   @id @default(autoincrement())
-  name      String   @unique
-  data      String   @default("{}")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-

@@ -1,30 +1,15 @@
-import {H3Event} from "h3";
-import {verify} from "jsonwebtoken";
+// import {H3Event} from "h3";
+import jwt from "jsonwebtoken";
 import {SECRET} from "./login.post";
-
-const TOKEN_TYPE = "Bearer";
-
-const extractToken = (authHeaderValue: string) => {
-  const [, token] = authHeaderValue.split(`${TOKEN_TYPE} `);
-  return token;
-};
-
-const ensureAuth = (event: H3Event) => {
-  const authHeaderValue = getRequestHeader(event, "authorization");
-  if (typeof authHeaderValue === "undefined") {
-    throw createError({statusCode: 403, statusMessage: "Need to pass valid Bearer-authorization header to access this endpoint"});
-  }
-
-  const extractedToken = extractToken(authHeaderValue);
-  try {
-    return verify(extractedToken, SECRET);
-  } catch (error) {
-    console.error("Login failed. Here's the raw error:", error);
-    throw createError({statusCode: 403, statusMessage: "You must be logged in to use this endpoint"});
-  }
-};
+import {responseJSON} from "~/utils";
+const {verify} = jwt;
 
 export default eventHandler((event) => {
-  const user = ensureAuth(event);
-  return user;
+  try {
+    const accessToken = getCookie(event, "ACCESS_TOKEN") || "";
+    if (!accessToken) return responseJSON(event, 401, {message: "No Authorization"});
+    return verify(accessToken, SECRET);
+  } catch (error: any) {
+    return responseJSON(event, 403, {error: error.message});
+  }
 });

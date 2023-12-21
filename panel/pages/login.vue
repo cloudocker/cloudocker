@@ -20,8 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-  import axios from "axios";
-
   definePageMeta({
     layout: "center",
   });
@@ -39,22 +37,7 @@
     },
     methods: {
       async login() {
-        try {
-          const response = await axios.post("/api/auth/login", this.form);
-          if (!response.data.access_token) throw new Error("Invalid response");
-          useToast().add({
-            title: "Login",
-            description: "Login success",
-            timeout: 1500,
-          });
-          return navigateTo("/");
-        } catch (error: any) {
-          useToast().add({
-            title: "Login",
-            description: error.response?.data.message || error.message,
-            color: "red",
-          });
-        }
+        await useAuthStore().login(this.form);
       },
     },
   };

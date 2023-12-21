@@ -1,4 +1,3 @@
-// import {H3Event} from "h3";
 import jwt from "jsonwebtoken";
 import {SECRET} from "./login.post";
 import {responseJSON} from "~/utils";

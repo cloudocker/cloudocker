@@ -6,7 +6,10 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "light",
   },
-  modules: ["@nuxtjs/eslint-module", "@nuxt/ui", "@nuxtjs/google-fonts"],
+  modules: ["@nuxtjs/eslint-module", "@nuxt/ui", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  pinia: {
+    storesDirs: ["./stores/**"],
+  },
   googleFonts: {
     families: {
       "DM+Sans": [400, 500, 700],

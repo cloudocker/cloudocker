@@ -14,15 +14,15 @@ export default eventHandler(async (event) => {
     const body = await readBody(event);
     const email = body.email;
     const password = body.password;
-    if (!email || !password) return responseJSON(event, 400, {error: "Missing email or password"});
+    if (!email || !password) return responseJSON(event, 400, {message: "Missing email or password"});
 
     const user = await prisma.users.findFirst({
       where: {email: email},
     });
-    if (!user) return responseJSON(event, 404, {error: "User not found"});
+    if (!user) return responseJSON(event, 404, {message: "User not found"});
 
     const isPasswordValid = await compare(password, user.password);
-    if (!isPasswordValid) return responseJSON(event, 401, {error: "Invalid password"});
+    if (!isPasswordValid) return responseJSON(event, 401, {message: "Invalid password"});
 
     const data = {
       email: email,
@@ -37,6 +37,6 @@ export default eventHandler(async (event) => {
       access_token: accessToken,
     };
   } catch (error: any) {
-    return responseJSON(event, 500, {error: error.message});
+    return responseJSON(event, 500, {message: error.message});
   }
 });

@@ -1,7 +1,7 @@
-import axios from "axios";
-
 export default defineNuxtRouteMiddleware(async (to) => {
-  const isAuth = await axios.get("/api/auth/user").then((response) => response.status === 200);
+  if (useSettingsStore().isFirstLoad) await useAuthStore().init();
+
+  const isAuth = useAuthStore().isAuth;
   if (to.path === "/login" && isAuth) {
     return navigateTo("/");
   } else if (to.path !== "/login" && !isAuth) {

@@ -19,18 +19,10 @@ export const useAuthStore = defineStore("user", {
       try {
         const {data} = await axios.post("/api/auth/login", credentials);
         useAuthStore().setUserData(data);
-        useToast().add({
-          title: "Login",
-          description: "Login success",
-          timeout: 1500,
-        });
+        sendToast("success", "Login Success", 2000);
         return navigateTo("/", {replace: true, external: false});
       } catch (error: any) {
-        useToast().add({
-          title: "Login",
-          description: error.response?.data.message || error.message,
-          color: "red",
-        });
+        sendToast("error", error.response?.data.message || error.message, 3000);
         return false;
       }
     },
@@ -38,18 +30,10 @@ export const useAuthStore = defineStore("user", {
       try {
         await axios.post("/api/auth/logout");
         useAuthStore().setUserData({email: "", name: "", iat: 0, exp: 0});
-        useToast().add({
-          title: "Logout",
-          description: "Logout success",
-          timeout: 1500,
-        });
+        sendToast("success", "Logout Success", 2000);
         return navigateTo("/login", {replace: true, external: false});
       } catch (error: any) {
-        useToast().add({
-          title: "Logout",
-          description: error.response?.data.message || error.message,
-          color: "red",
-        });
+        sendToast("error", error.response?.data.message || error.message, 3000);
         return false;
       }
     },

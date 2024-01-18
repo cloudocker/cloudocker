@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="cursor-pointer rounded-lg border border-gray-300 bg-white bg-opacity-50 p-2 shadow-sm backdrop-blur-md duration-300 hover:bg-opacity-70">
+  <div class="cursor-pointer rounded-lg border border-gray-300 bg-white bg-opacity-50 p-2 shadow-sm backdrop-blur-md duration-300 hover:bg-opacity-70">
     <div class="flex min-h-[200px] flex-col gap-y-2 px-5 py-3">
       <span class="text-lg font-medium text-gray-700">Sonic Karaoke</span>
       <div class="flex flex-col gap-y-1">

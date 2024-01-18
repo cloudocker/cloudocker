@@ -3,10 +3,8 @@
 export default defineNuxtConfig({
   ssr: false,
   devtools: {enabled: true},
-  colorMode: {
-    preference: "light",
-  },
-  modules: ["@nuxtjs/eslint-module", "@nuxt/ui", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  modules: ["@nuxtjs/eslint-module", "@nuxtjs/google-fonts", "@pinia/nuxt"],
+  plugins: ["~/plugins/preline.client.ts"],
   pinia: {
     storesDirs: ["./stores/**"],
   },
@@ -22,6 +20,12 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.css"],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   runtimeConfig: {
     jwtSecret: process.env.JWT_SECRET,
     public: {
